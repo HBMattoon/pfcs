@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"webpack & node server/index.js",
+    "start":"node server/index.js",
     "start:dev": "nodemon server/index.js",
-    "react": "webpack",
-    "react:dev": "webpack -w"
+    "build": "webpack",
+    "build:dev": "webpack -w"
   },
   "repository": {
     "type": "git",
