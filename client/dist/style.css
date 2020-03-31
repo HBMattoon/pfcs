@@ -1,0 +1,16 @@
+#appBody {
+  max-width: 800px;
+  border: red 1px solid;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 500px;
+}
+
+.navBar {
+  width: 100%;
+  border: darkcyan  1px solid;
+}
+
+body {
+  background-color: rgb(221, 219, 219);
+}
