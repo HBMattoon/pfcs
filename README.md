@@ -7,7 +7,7 @@
 
 an extremely basic template for a react webapp (WIP)
 
-**scripts:**
+**scripts:** <br>
   `start`  bundles jsx files and starts server <br>
   `start:dev`  starts server using nodemon <br>
   `build` bundles jsx files <br>
