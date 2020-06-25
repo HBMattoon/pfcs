@@ -8,7 +8,8 @@
     "start:dev": "nodemon server/index.js",
     "build": "webpack",
     "build:dev": "webpack -w",
-    "lint": "eslint \"client/src/**\""
+    "lint": "eslint \"client/src/**\"",
+    "lint:fix": "eslint --fix \"client/src/**\""
   },
   "repository": {
     "type": "git",

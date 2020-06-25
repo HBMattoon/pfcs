@@ -12,7 +12,8 @@ an extremely basic template for a react webapp (WIP)
   `start:dev`  starts server using nodemon
   `build` bundles jsx files
   `build:dev` bundles jsx files and watches for any changes
-  `lint` runs eslint on react components file
+  `lint` runs eslint on react components files using Airbnb style
+  `lint:fix` runs eslint but with the "--fix" option
 
 to deploy to heroku
 ```
