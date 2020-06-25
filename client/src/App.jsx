@@ -1,30 +1,22 @@
 import React from 'react';
-import NavBar from './components/NavBar.jsx'
+import NavBar from './components/NavBar';
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      activeTab: 'default',
     };
     this.chooseActiveTab = this.chooseActiveTab.bind(this);
   }
 
-  componentDidMount(){}
+  componentDidMount() {}
 
-  chooseActiveTab(tab){
-    const tabFunc = () => {
-      this.setState({activeTab:tab});
-    }
-    return tabFunc;
-  }
-
-  render(){
-    return(
+  render() {
+    return (
       <div id="appBody">
         <NavBar />
       </div>
-    )
+    );
   }
 }
 
