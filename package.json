@@ -7,7 +7,8 @@
     "start": "webpack & node server/index.js",
     "start:dev": "nodemon server/index.js",
     "build": "webpack",
-    "build:dev": "webpack -w"
+    "build:dev": "webpack -w",
+    "lint": "eslint \"client/src/**\""
   },
   "repository": {
     "type": "git",

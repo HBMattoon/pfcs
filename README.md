@@ -12,6 +12,7 @@ an extremely basic template for a react webapp (WIP)
   `start:dev`  starts server using nodemon
   `build` bundles jsx files
   `build:dev` bundles jsx files and watches for any changes
+  `lint` runs eslint on react components file
 
 to deploy to heroku
 ```
