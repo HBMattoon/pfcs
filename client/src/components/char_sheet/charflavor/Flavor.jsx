@@ -5,9 +5,9 @@ class Flavor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      value: 'default flavor value',
       lock: false,
-      title: 'default',
+      title: 'default flavor name',
     };
   }
 
@@ -29,11 +29,28 @@ class Flavor extends React.Component {
     }
     return (
       <div className="flavor-value-unlock">
-        {value}
-        {' '}
-        edit
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => this.updateValue(e)}
+          onBlur={() => this.updateStateWithValue()}
+        />
       </div>
     );
+  }
+
+  updateValue(e) {
+    this.setState({
+      value: e.target.value,
+    });
+  }
+
+  updateStateWithValue() {
+    const { propsPackage } = this.props;
+    const { value } = this.state;
+    if (propsPackage.value !== value) {
+      propsPackage.updater(value);
+    }
   }
 
   render() {
@@ -57,6 +74,7 @@ Flavor.propTypes = {
     value: PropTypes.string,
     lock: PropTypes.bool,
     title: PropTypes.string,
+    updater: PropTypes.func,
   }),
 };
 
@@ -65,6 +83,7 @@ Flavor.defaultProps = {
     value: 'value not provide',
     lock: false,
     title: 'title not provided',
+    updater: undefined,
   },
 };
 
