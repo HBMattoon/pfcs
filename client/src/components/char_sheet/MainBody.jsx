@@ -36,5 +36,4 @@ class MainBody extends React.Component {
 // experience points
 // addition notes/ misc
 
-
 export default MainBody;

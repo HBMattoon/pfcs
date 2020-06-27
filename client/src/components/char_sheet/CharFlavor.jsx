@@ -1,26 +1,42 @@
 import React from 'react';
+import CharFlavMore from './charflavor/CharFlavMore';
 
-//for testing purposes
-import Flavor from './charflavor/Flavor';
+// for testing purposes
+const testobj = {
+  lock: false,
+  name: 'myCoolTestName',
+  alignment: '',
+  player: '',
+  level: '',
+  deity: '',
+  homeland: '',
+  race: '',
+  size: '',
+  gender: '',
+  height: '',
+  weight: '',
+  hair: '',
+  eyes: '',
+  misc: '',
+};
 
 class CharFlavor extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      showmore: true
-    }
+      showmore: true,
+    };
   }
 
-  flavorLevel () {
-    if(this.state.showmore){
+  flavorLevel() {
+    if (this.state.showmore) {
       return (
-        <Flavor title='testvalue' />
-      );
-    } else {
-      return (
-        <div> flavor messup</div>
+        <CharFlavMore flavobj={testobj} />
       );
     }
+    return (
+      <div> flavor messup</div>
+    );
   }
 
   render() {
@@ -30,7 +46,6 @@ class CharFlavor extends React.Component {
       </div>
     );
   }
-
 }
 
 export default CharFlavor;
