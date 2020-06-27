@@ -1,12 +1,13 @@
 import React from 'react';
 import NavBar from './components/NavBar';
+import MainBody from './components/char_sheet/MainBody';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
-    this.chooseActiveTab = this.chooseActiveTab.bind(this);
+
   }
 
   componentDidMount() {}
@@ -15,6 +16,7 @@ class App extends React.Component {
     return (
       <div id="appBody">
         <NavBar />
+        <MainBody />
       </div>
     );
   }
