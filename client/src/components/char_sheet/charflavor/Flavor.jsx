@@ -12,23 +12,24 @@ class Flavor extends React.Component {
   }
 
   componentDidMount() {
-    const { value, lock, title } = this.props.propsPackage;
+    const { propsPackage } = this.props;
     this.setState({
-      value: (value || 'please provide value'),
-      lock: (lock || false),
-      title: (title || 'no title provided'),
+      value: (propsPackage.value || 'please provide value'),
+      lock: (propsPackage.lock || false),
+      title: (propsPackage.title || 'no title provided'),
     });
   }
 
   flavorEditorCheck() {
-    if (this.state.lock) {
+    const { lock, value } = this.state;
+    if (lock) {
       return (
-        <div className="flavor-value-lock">{this.state.value}</div>
+        <div className="flavor-value-lock">{value}</div>
       );
     }
     return (
       <div className="flavor-value-unlock">
-        {this.state.value}
+        {value}
         {' '}
         edit
       </div>
@@ -36,6 +37,7 @@ class Flavor extends React.Component {
   }
 
   render() {
+    const { title } = this.state;
     return (
       <div className="flavor-item">
         <div className="flavor-input">
@@ -43,7 +45,7 @@ class Flavor extends React.Component {
         </div>
         <div className="flavor-devider" />
         <div className="flavor-title">
-          {this.state.title}
+          {title}
         </div>
       </div>
     );
@@ -56,6 +58,14 @@ Flavor.propTypes = {
     lock: PropTypes.bool,
     title: PropTypes.string,
   }),
+};
+
+Flavor.defaultProps = {
+  propsPackage: {
+    value: 'value not provide',
+    lock: false,
+    title: 'title not provided',
+  },
 };
 
 export default Flavor;
