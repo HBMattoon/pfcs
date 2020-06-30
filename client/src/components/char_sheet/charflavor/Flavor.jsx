@@ -53,6 +53,24 @@ class Flavor extends React.Component {
     }
   }
 
+  getButtons() {
+    const { propsPackage } = this.props;
+    let result = [];
+    console.log('ping')
+    console.log(propsPackage.moveUp)
+    if(propsPackage.moveUp !== undefined) {
+      result.push(
+        <button>move up</button>
+      )
+    }
+    if(propsPackage.moveDown !== undefined) {
+      result.push(
+        <button>move down</button>
+      )
+    }
+    return result;
+  }
+
   render() {
     const { title } = this.state;
     return (
@@ -63,6 +81,9 @@ class Flavor extends React.Component {
         <div className="flavor-devider" />
         <div className="flavor-title">
           {title}
+        </div>
+        <div className="flavor-buttons">
+          {this.getButtons()}
         </div>
       </div>
     );
