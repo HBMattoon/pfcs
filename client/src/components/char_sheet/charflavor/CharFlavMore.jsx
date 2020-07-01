@@ -25,12 +25,15 @@ class CharFlavMore extends React.Component {
         { title: 'misc', show: true },
       ]
     }
+    this.movePosition = this.movePosition.bind(this)
   }
 
-  // componentDidMount() {
-  //   this.setState({
-  //     flavObj: this.props.flavobj,
-  //   });
+  componentDidMount() {
+    console.log(this.state.flavorPositions)
+  }
+
+  // componentWillUpdate() {
+  //   console.log('updating!')
   // }
 
   movePosition(position, direction){
@@ -41,10 +44,11 @@ class CharFlavMore extends React.Component {
     if (position !== bounds) {
       let newPositions = this.state.flavorPositions.slice();
       let temp = newPositions[position];
-      newPositions[position] = newPositions[position - 1];
-      newPositions[position - 1] = temp;
+      newPositions[position] = newPositions[position - dirVal];
+      newPositions[position - dirVal] = temp;
 
       const func = () => {
+        console.log('moving ', direction, dirVal )
         console.log(newPositions);
         this.setState({
           flavorPositions: newPositions
@@ -64,6 +68,7 @@ class CharFlavMore extends React.Component {
   }
 
   flavorPackage(key, position) {
+    //console.log(key)
     const title = key.charAt(0).toUpperCase() + key.slice(1);
     const result = {
       title,
@@ -73,7 +78,7 @@ class CharFlavMore extends React.Component {
       moveUp: this.movePosition(position, 'up'),
       moveDown: this.movePosition(position, 'down'),
     };
-
+    //console.log(result.title)
     return result;
   }
 
@@ -81,8 +86,9 @@ class CharFlavMore extends React.Component {
     let counter = 0;
     const flavPos = this.state.flavorPositions;
     return flavPos.map(item => {
+      //console.log(item.title)
       let result = ( <Flavor className="" key={counter} propsPackage={this.flavorPackage(item.title, counter)} /> )
-      console.log(counter)
+      //console.log(counter)
       counter++;
       return result;
     });

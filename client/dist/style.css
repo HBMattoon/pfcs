@@ -14,3 +14,7 @@
 body {
   background-color: rgb(221, 219, 219);
 }
+
+.flavor-item {
+  border: green 1px solid;
+}
