@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Flavor from './Flavor';
 
-
-
 class CharFlavMore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flavorPositions : [
+      flavorPositions: [
         { title: 'name', show: true },
         { title: 'alignment', show: true },
         { title: 'player', show: true },
@@ -23,52 +21,51 @@ class CharFlavMore extends React.Component {
         { title: 'hair', show: true },
         { title: 'eyes', show: true },
         { title: 'misc', show: true },
-      ]
-    }
-    this.movePosition = this.movePosition.bind(this)
+      ],
+    };
+    this.movePosition = this.movePosition.bind(this);
   }
 
   componentDidMount() {
-    console.log(this.state.flavorPositions)
+    console.log(this.state.flavorPositions);
   }
 
   // componentWillUpdate() {
   //   console.log('updating!')
   // }
 
-  movePosition(position, direction){
+  movePosition(position, direction) {
     const flavPos = this.state.flavorPositions;
     const dirVal = (direction === 'up') ? 1 : -1;
     const bounds = (direction === 'up') ? 0 : flavPos.length - 1;
 
     if (position !== bounds) {
-      let newPositions = this.state.flavorPositions.slice();
-      let temp = newPositions[position];
+      const newPositions = this.state.flavorPositions.slice();
+      const temp = newPositions[position];
       newPositions[position] = newPositions[position - dirVal];
       newPositions[position - dirVal] = temp;
 
       const func = () => {
-        console.log('moving ', direction, dirVal )
+        console.log('moving ', direction, dirVal);
         console.log(newPositions);
         this.setState({
-          flavorPositions: newPositions
-        })
-      }
+          flavorPositions: newPositions,
+        });
+      };
 
       return func;
-    } else {
-      return undefined;
     }
+    return undefined;
   }
 
   toggleShow(position) {
-    let newPositions = this.state.flavorPositions.slice();
+    const newPositions = this.state.flavorPositions.slice();
     newPositions.show = !newPositions.show;
-    this.setState({flavorPositions: newPositions });
+    this.setState({ flavorPositions: newPositions });
   }
 
   flavorPackage(key, position) {
-    //console.log(key)
+    // console.log(key)
     const title = key.charAt(0).toUpperCase() + key.slice(1);
     const result = {
       title,
@@ -78,17 +75,17 @@ class CharFlavMore extends React.Component {
       moveUp: this.movePosition(position, 'up'),
       moveDown: this.movePosition(position, 'down'),
     };
-    //console.log(result.title)
+    // console.log(result.title)
     return result;
   }
 
-  getFlavors(){
+  getFlavors() {
     let counter = 0;
     const flavPos = this.state.flavorPositions;
-    return flavPos.map(item => {
-      //console.log(item.title)
-      let result = ( <Flavor className="" key={counter} propsPackage={this.flavorPackage(item.title, counter)} /> )
-      //console.log(counter)
+    return flavPos.map((item) => {
+      // console.log(item.title)
+      const result = (<Flavor className="" key={counter} propsPackage={this.flavorPackage(item.title, counter)} />);
+      // console.log(counter)
       counter++;
       return result;
     });

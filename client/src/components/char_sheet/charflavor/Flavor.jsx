@@ -7,7 +7,6 @@ class Flavor extends React.Component {
     this.state = {
       value: 'default flavor value',
       lock: false,
-      title: 'default flavor name',
     };
   }
 
@@ -16,35 +15,47 @@ class Flavor extends React.Component {
     this.setState({
       value: (propsPackage.value || ''),
       lock: (propsPackage.lock || false),
-      title: (propsPackage.title || 'no title provided'),
     });
-
-    //console.log('updating flavor')
   }
 
-  componentDidUpdate(prevProps){
-    const {propsPackage} = this.props
-    if(this.checkPropsDiff(prevProps.propsPackage, propsPackage)){
-      this.setState({
-        value: (propsPackage.value || ''),
-        lock: (propsPackage.lock || false),
-        title: (propsPackage.title || 'no title provided'),
-      });
-    }
-
+  componentDidUpdate(prevProps) {
+    const { propsPackage } = this.props;
+    this.checkPropsDiff(prevProps.propsPackage, propsPackage);
   }
 
-  checkPropsDiff(prevProps, newProps) {
-    if(prevProps.title !== newProps.title || prevProps.value !== newProps.value || prevProps.lock !== newProps.lock){
-      return true;
-    } else {
-      return false;
+  getButtons() {
+    const { propsPackage } = this.props;
+    const result = [];
+    if (propsPackage.moveUp !== undefined) {
+      result.push(
+        <button key="up" type="button" onClick={() => propsPackage.moveUp()}>move up</button>,
+      );
     }
+    if (propsPackage.moveDown !== undefined) {
+      result.push(
+        <button key="down" type="button" onClick={() => propsPackage.moveDown()}>move down</button>,
+      );
+    }
+    return result;
+  }
+
+  updateStateWithValue() {
+    const { propsPackage } = this.props;
+    const { value } = this.state;
+
+    if (propsPackage.value !== value) {
+      propsPackage.updater(value);
+    }
+  }
+
+  updateValue(e) {
+    this.setState({
+      value: e.target.value,
+    });
   }
 
   flavorEditorCheck() {
     const { lock, value } = this.state;
-    //const { lock, value } = this.props.propsPackage
     if (lock) {
       return (
         <div className="flavor-value-lock">{value}</div>
@@ -62,39 +73,16 @@ class Flavor extends React.Component {
     );
   }
 
-  updateValue(e) {
-    //console.log(e.target.value)
-    this.setState({
-      value: e.target.value,
-    });
-  }
-
-  updateStateWithValue() {
-    const { propsPackage } = this.props;
-    const { value } = this.state;
-
-    if (propsPackage.value !== value) {
-      propsPackage.updater(value);
+  checkPropsDiff(prevProps, newProps) {
+    if (prevProps.value !== newProps.value || prevProps.lock !== newProps.lock) {
+      this.setState({
+        value: (newProps.value || ''),
+        lock: (newProps.lock || false),
+      });
     }
   }
 
-  getButtons() {
-    const { propsPackage } = this.props;
-    let result = [];
-    if(propsPackage.moveUp !== undefined) {
-      result.push(
-        <button key='up' onClick={() => propsPackage.moveUp()}>move up</button>
-      )
-    }
-    if(propsPackage.moveDown !== undefined) {
-      result.push(
-        <button key='down' onClick={() => propsPackage.moveDown()}>move down</button>
-      )
-    }
-    return result;
-  }
-
-  //FOR TESTING PURPOSES
+  // FOR TESTING PURPOSES
   // printState(){
   //   console.log('state is: ')
   //   console.log(this.state)
@@ -103,7 +91,7 @@ class Flavor extends React.Component {
   // }
 
   render() {
-    const { title } = this.props.propsPackage;
+    const { propsPackage } = this.props;
     return (
       <div className="flavor-item">
         <div className="flavor-input">
@@ -111,11 +99,11 @@ class Flavor extends React.Component {
         </div>
         <div className="flavor-devider" />
         <div className="flavor-title">
-          {title}
+          {propsPackage.title}
         </div>
         <div className="flavor-buttons">
           {this.getButtons()}
-          <button onClick={() => this.printState()}>test</button>
+          {/* <button type="button" onClick={() => this.printState()}>test</button> */}
         </div>
       </div>
     );
@@ -128,6 +116,8 @@ Flavor.propTypes = {
     lock: PropTypes.bool,
     title: PropTypes.string,
     updater: PropTypes.func,
+    moveUp: PropTypes.func,
+    moveDown: PropTypes.func,
   }),
 };
 
@@ -137,6 +127,8 @@ Flavor.defaultProps = {
     lock: false,
     title: 'title not provided',
     updater: undefined,
+    moveUp: undefined,
+    moveDown: undefined,
   },
 };
 
