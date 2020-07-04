@@ -27,27 +27,42 @@ class CharFlavMore extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state.flavorPositions);
+    // console.log(this.state.flavorPositions);
   }
 
   // componentWillUpdate() {
   //   console.log('updating!')
   // }
 
+  getFlavors() {
+    let counter = 0;
+    const { flavorPositions } = this.state;
+    // const flavPos = this.state.flavorPositions;
+
+    return flavorPositions.map((item) => {
+      // console.log(item.title)
+      const result = (<Flavor className="" key={counter} propsPackage={this.flavorPackage(item.title, counter)} />);
+      // console.log(counter)
+      counter += 1;
+      return result;
+    });
+  }
+
   movePosition(position, direction) {
-    const flavPos = this.state.flavorPositions;
+    // const flavPos = this.state.flavorPositions;
+    const { flavorPositions } = this.state;
     const dirVal = (direction === 'up') ? 1 : -1;
-    const bounds = (direction === 'up') ? 0 : flavPos.length - 1;
+    const bounds = (direction === 'up') ? 0 : flavorPositions.length - 1;
 
     if (position !== bounds) {
-      const newPositions = this.state.flavorPositions.slice();
+      const newPositions = flavorPositions.slice();
       const temp = newPositions[position];
       newPositions[position] = newPositions[position - dirVal];
       newPositions[position - dirVal] = temp;
 
       const func = () => {
-        console.log('moving ', direction, dirVal);
-        console.log(newPositions);
+        // console.log('moving ', direction, dirVal);
+        // console.log(newPositions);
         this.setState({
           flavorPositions: newPositions,
         });
@@ -58,8 +73,9 @@ class CharFlavMore extends React.Component {
     return undefined;
   }
 
-  toggleShow(position) {
-    const newPositions = this.state.flavorPositions.slice();
+  toggleShow() {
+    const { flavorPositions } = this.state;
+    const newPositions = flavorPositions.slice();
     newPositions.show = !newPositions.show;
     this.setState({ flavorPositions: newPositions });
   }
@@ -67,28 +83,17 @@ class CharFlavMore extends React.Component {
   flavorPackage(key, position) {
     // console.log(key)
     const title = key.charAt(0).toUpperCase() + key.slice(1);
+    const { updater, flavobj } = this.props;
     const result = {
       title,
-      lock: this.props.flavobj.lock,
-      value: this.props.flavobj[key],
-      updater: this.props.updater(key),
+      lock: flavobj.lock,
+      value: flavobj[key],
+      updater: updater(key),
       moveUp: this.movePosition(position, 'up'),
       moveDown: this.movePosition(position, 'down'),
     };
     // console.log(result.title)
     return result;
-  }
-
-  getFlavors() {
-    let counter = 0;
-    const flavPos = this.state.flavorPositions;
-    return flavPos.map((item) => {
-      // console.log(item.title)
-      const result = (<Flavor className="" key={counter} propsPackage={this.flavorPackage(item.title, counter)} />);
-      // console.log(counter)
-      counter++;
-      return result;
-    });
   }
 
   render() {
@@ -124,10 +129,11 @@ CharFlavMore.propTypes = {
     misc: PropTypes.string,
 
   }),
+  updater: PropTypes.func,
 };
 
 CharFlavMore.defaultProps = {
-  propsPackage: {
+  flavobj: {
     showmore: true,
     lock: false,
     name: 'BADNAME',
@@ -145,6 +151,7 @@ CharFlavMore.defaultProps = {
     eyes: '',
     misc: '',
   },
+  updater: undefined,
 };
 
 export default CharFlavMore;
